@@ -12,7 +12,7 @@ It helps you take control of your time by limiting Shorts consumption, forcing b
   - Block status  
   - Weekly history chart
  
-  ## Tech Stack
+# Tech Stack
 
 This Chrome Extension is built using:
 
@@ -23,7 +23,7 @@ This Chrome Extension is built using:
 - **Image Assets** – Extension icons (`icon.png`)
 - **Chrome Extension APIs** – For interacting with browser tabs, storage, etc.
 
-## Installation (Developer Mode)
+# Installation (Developer Mode)
 1. Clone this repo:
    ```bash
     https://github.com/Eshaj20/Doomscroll_Breaker_Chrome_Extension.git
@@ -38,7 +38,7 @@ This Chrome Extension is built using:
 
 5.Pin the extension → Open YouTube Shorts → Start testing 
 
-## Roadmap / Future Enhancements
+# Roadmap / Future Enhancements
 
  -Customizable thresholds (user sets Shorts limit & break duration)
 
