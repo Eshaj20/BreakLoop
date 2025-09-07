@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Doomscroll Breaker",
+  "version": "1.0",
+  "description": "Stop infinite scrolling on YouTube Shorts!",
+  "permissions": [],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/shorts/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
