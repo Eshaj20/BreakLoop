@@ -36,7 +36,7 @@ This Chrome Extension is built using:
 
 4.Click Load unpacked → select the project folder.
 
-5.Pin the extension → Open YouTube Shorts → Start testing 🚀
+5.Pin the extension → Open YouTube Shorts → Start testing 
 
 ## Roadmap / Future Enhancements
 
