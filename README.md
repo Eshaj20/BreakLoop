@@ -28,7 +28,9 @@ This Chrome Extension is built using:
    ```bash
     https://github.com/Eshaj20/Doomscroll_Breaker_Chrome_Extension.git
    
-2.Open Chrome → go to chrome://extensions/
+2.Open Chrome → go to 
+                   
+                    chrome://extensions/
 
 3.Enable Developer Mode (top right).
 
