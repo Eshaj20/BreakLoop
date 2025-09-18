@@ -10,7 +10,7 @@ It helps you take control of your time by limiting Shorts consumption, forcing b
   - Shorts watched today  
   - Breaks taken  
   - Block status  
-  - Weekly history chart
+
  
 # Tech Stack
 
