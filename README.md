@@ -56,11 +56,13 @@
 
 # Example dashboard
 
-- settings 
+1. settings 
 <img width="476" height="351" alt="image" src="https://github.com/user-attachments/assets/eb6847e0-06c7-4ed4-a5fc-eff2574ba070" />
-- History 
+
+2. History 
 <img width="474" height="434" alt="image" src="https://github.com/user-attachments/assets/9df1aab4-42fc-46e2-ac60-a471d05bae40" />
-- Dashboard
+
+3. Dashboard
   <img width="492" height="752" alt="image" src="https://github.com/user-attachments/assets/130f6289-77bf-4600-a420-27bead877825" />
 
 
