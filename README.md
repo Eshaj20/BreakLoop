@@ -5,7 +5,7 @@
 **Doomscroll Breaker** gives you back control by limiting how many Shorts you can watch in one session, enforcing short breaks, and even blocking YouTube for the day after repeated overuse.
 > It also provides a **visual dashboard** showing your usage stats, content types (educational vs entertainment), and your 7-day viewing trends — right inside the extension popup.
 
-# Features
+ **Features**
 
 | Category | Description |
 |-----------|--------------|
@@ -18,7 +18,7 @@
 | **Custom Settings** | Change session limits and break duration in the popup. |
 | **(Optional)** Dark Mode Toggle (coming soon). |
 
-# Tech Stack
+**Tech Stack**
 - **Manifest V3** (latest Chrome extension standard)
 - **JavaScript (ES6)** for logic and analytics
 - **Chart.js** for beautiful progress, pie, and history charts
@@ -26,7 +26,7 @@
 - **Chrome Storage API** for persistent user settings and statistics
 
   
-# Installation (Developer Mode)
+**Installation (Developer Mode)**
 
 1.Download or clone this repository:
    ```bash
@@ -42,7 +42,7 @@
 
 5.Visit any YouTube Shorts video → your extension will activate automatically.
 
-# How It Works
+**How It Works**
 
 1. Content Script (content.js)
 - Runs on YouTube Shorts pages to count how many videos you’ve watched.
@@ -54,7 +54,7 @@
 3.Background Service Worker (background.js)
 - Handles daily resets and message passing.
 
-# Example dashboard
+**Example dashboard**
 
 1. settings 
 <img width="476" height="351" alt="image" src="https://github.com/user-attachments/assets/eb6847e0-06c7-4ed4-a5fc-eff2574ba070" />
@@ -66,7 +66,7 @@
   <img width="492" height="752" alt="image" src="https://github.com/user-attachments/assets/130f6289-77bf-4600-a420-27bead877825" />
 
 
-# Privacy & Data
+**Privacy & Data**
 - No data leaves your computer.
 - All stats and settings are stored locally using chrome.storage.local.
 - No tracking, analytics, or network requests are used.
