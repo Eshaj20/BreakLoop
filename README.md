@@ -18,7 +18,7 @@
 | **Custom Settings** | Change session limits and break duration in the popup. |
 | **(Optional)** Dark Mode Toggle (coming soon). |
 
-**Tech Stack**
+** Tech Stack **
 - **Manifest V3** (latest Chrome extension standard)
 - **JavaScript (ES6)** for logic and analytics
 - **Chart.js** for beautiful progress, pie, and history charts
@@ -26,7 +26,7 @@
 - **Chrome Storage API** for persistent user settings and statistics
 
   
-**Installation (Developer Mode)**
+** Installation (Developer Mode) **
 
 1.Download or clone this repository:
    ```bash
