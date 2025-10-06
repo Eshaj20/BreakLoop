@@ -1,126 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doomscroll Breaker Dashboard</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      width: 360px;
-      margin: 0;
-      padding: 10px;
-      background: #fafafa;
-    }
-    h1 {
-      text-align: center;
-      font-size: 18px;
-      color: #e53935;
-      margin-bottom: 10px;
-    }
-    .tabs {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 8px;
-    }
-    .tab {
-      flex: 1;
-      text-align: center;
-      padding: 8px;
-      background: #eee;
-      cursor: pointer;
-      border-radius: 8px 8px 0 0;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-    .tab.active {
-      background: #e53935;
-      color: white;
-    }
-    .content {
-      display: none;
-      background: white;
-      border: 2px solid #e53935;
-      border-radius: 0 0 8px 8px;
-      padding: 12px;
-    }
-    .content.active {
-      display: block;
-    }
-    canvas {
-      display: block;
-      margin: 10px auto;
-    }
-    #stats {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    #saveMsg {
-      color: green;
-      text-align: center;
-      margin-top: 5px;
-    }
-    label {
-      font-size: 14px;
-    }
-    input {
-      width: 80px;
-      padding: 4px;
-      margin: 4px;
-    }
-    button {
-      background: #e53935;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 6px 12px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    button:hover {
-      background: #c62828;
-    }
-  </style>
-</head>
-<body>
-  <h1>🔥 Doomscroll Breaker</h1>
+// ======================================
+// Doomscroll Breaker - popup.js (v3.3)
+// ======================================
 
-  <div class="tabs">
-    <div class="tab active">Dashboard</div>
-    <div class="tab">History</div>
-    <div class="tab">Settings</div>
-  </div>
+// ---------- Dashboard Loader ----------
+function loadDashboard() {
+  chrome.storage.local.get(
+    [
+      "doomscrollTotalToday",
+      "doomscrollStrikes",
+      "doomscrollBlockedToday",
+      "doomscrollHistory",
+      "doomscrollContentStats",
+      "shortsLimit"
+    ],
+    (res) => {
+      const shortsToday = res.doomscrollTotalToday || 0;
+      const strikesToday = res.doomscrollStrikes || 0;
+      const blockedToday = res.doomscrollBlockedToday ? "Yes" : "No";
+      const limit = res.shortsLimit || 10;
 
-  <!-- Dashboard -->
-  <div class="content active">
-    <div id="stats">
-      <p>Shorts Watched Today: <b id="shortsToday">0</b></p>
-      <p>Breaks Taken: <b id="strikesToday">0</b></p>
-      <p>Blocked Today: <b id="blockedToday">No</b></p>
-    </div>
-    <canvas id="progressChart" width="200" height="200"></canvas>
-    <canvas id="typeChart" width="300" height="150"></canvas>
-  </div>
+      // Update text
+      document.getElementById("shortsToday").textContent = shortsToday;
+      document.getElementById("strikesToday").textContent = strikesToday;
+      document.getElementById("blockedToday").textContent = blockedToday;
 
-  <!-- History -->
-  <div class="content">
-    <h3 style="text-align:center; color:#e53935;">7-Day Viewing History</h3>
-    <canvas id="chart" width="320" height="160"></canvas>
-  </div>
+      // Draw charts safely
+      drawProgress(shortsToday, limit);
+      drawHistory(res.doomscrollHistory || {});
+      drawTypeChart(res.doomscrollContentStats || { Educational: 0, Entertainment: 0, Neutral: 0 });
+    }
+  );
+}
 
-  <!-- Settings -->
-  <div class="content">
-    <h3 style="text-align:center; color:#e53935;">Customize Limits</h3>
-    <label>Shorts Limit: </label>
-    <input id="limitInput" type="number" min="1" max="50" placeholder="10" /><br />
-    <label>Break Time (min): </label>
-    <input id="breakInput" type="number" min="1" max="30" placeholder="2" /><br />
-    <button id="saveBtn">Save</button>
-    <div id="saveMsg"></div>
-  </div>
+// ---------- Progress Donut Chart ----------
+function drawProgress(current, limit) {
+  const canvas = document.getElementById("progressChart");
+  if (!canvas) return;
+  if (typeof Chart === "undefined") {
+    console.warn("Chart.js not loaded for progressChart");
+    return;
+  }
 
-  <!-- Scripts -->
-  <script src="chart.js"></script>
-  <script src="popup.js"></script>
-</body>
-</html>
+  const ctx = canvas.getContext("2d");
+  const pct = Math.min(current / limit, 1);
+
+  // Clear old chart if needed
+  if (canvas.chartInstance) {
+    canvas.chartInstance.destroy();
+  }
+
+  canvas.chartInstance = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      datasets: [
+        {
+          data: [pct * 100, 100 - pct * 100],
+          backgroundColor: ["#e53935", "#eeeeee"],
+          borderWidth: 0
+        }
+      ]
+    },
+    options: {
+      cutout: "70%",
+      plugins: { legend: { display: false }, tooltip: { enabled: false } }
+    }
+  });
+}
+
+// ---------- 7-Day History ----------
+function drawHistory(hist) {
+  const canvas = document.getElementById("chart");
+  if (!canvas || typeof Chart === "undefined") return;
+  const ctx = canvas.getContext("2d");
+
+  const labels = Object.keys(hist).slice(-7);
+  const data = Object.values(hist).slice(-7);
+
+  if (canvas.chartInstance) canvas.chartInstance.destroy();
+
+  canvas.chartInstance = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        { label: "Shorts Watched", data, backgroundColor: "rgba(229,57,53,0.6)" }
+      ]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+}
+
+// ---------- Content Type Pie Chart ----------
+function drawTypeChart(stats) {
+  const canvas = document.getElementById("typeChart");
+  if (!canvas || typeof Chart === "undefined") return;
+  const ctx = canvas.getContext("2d");
+
+  if (canvas.chartInstance) canvas.chartInstance.destroy();
+
+  canvas.chartInstance = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: ["Educational", "Entertainment", "Neutral"],
+      datasets: [
+        {
+          data: [
+            stats.Educational || 0,
+            stats.Entertainment || 0,
+            stats.Neutral || 0
+          ],
+          backgroundColor: ["#43a047", "#e53935", "#999"]
+        }
+      ]
+    },
+    options: { plugins: { legend: { position: "bottom" } } }
+  });
+}
+
+// ---------- Tabs ----------
+document.querySelectorAll(".tab").forEach((tab, i) => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+    document.querySelectorAll(".content").forEach((c) => c.classList.remove("active"));
+    tab.classList.add("active");
+    document.querySelectorAll(".content")[i].classList.add("active");
+  });
+});
+
+// ---------- Save Settings ----------
+document.getElementById("saveBtn")?.addEventListener("click", () => {
+  const lim = parseInt(document.getElementById("limitInput").value) || 10;
+  const br = parseInt(document.getElementById("breakInput").value) || 2;
+  chrome.storage.local.set({ shortsLimit: lim, breakTime: br }, () => {
+    const msg = document.getElementById("saveMsg");
+    msg.textContent = "✅ Settings saved!";
+    setTimeout(() => (msg.textContent = ""), 2000);
+  });
+});
+
+// ---------- Init ----------
+document.addEventListener("DOMContentLoaded", loadDashboard);
+setInterval(loadDashboard, 4000);
+
+console.log("✅ Popup Dashboard v3.3 loaded successfully");
