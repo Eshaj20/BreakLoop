@@ -1,4 +1,4 @@
-## Doomscroll Breaker – Chrome Extension (v3.3)
+## BreakLoop – Chrome Extension (v3.3)
 
 > A Chrome Extension designed to help you fight **doomscrolling on YouTube Shorts** by enforcing mindful viewing limits, breaks, and analytics to track your daily habits.
 > YouTube Shorts can be addictive — and before you know it, you’ve lost an hour to endless scrolling.  
