@@ -1,6 +1,4 @@
-// ======================================
-// Doomscroll Breaker - popup.js (v3.3)
-// ======================================
+
 
 // ---------- Dashboard Loader ----------
 function loadDashboard() {
@@ -136,7 +134,7 @@ document.getElementById("saveBtn")?.addEventListener("click", () => {
   const br = parseInt(document.getElementById("breakInput").value) || 2;
   chrome.storage.local.set({ shortsLimit: lim, breakTime: br }, () => {
     const msg = document.getElementById("saveMsg");
-    msg.textContent = "✅ Settings saved!";
+    msg.textContent = "Settings saved!";
     setTimeout(() => (msg.textContent = ""), 2000);
   });
 });
