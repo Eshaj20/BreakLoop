@@ -1,6 +1,4 @@
-// ======================================
-// Doomscroll Breaker - content.js (v3.1)
-// ======================================
+
 
 let shortsViewed = 0;
 let lastShortId = null;
@@ -87,7 +85,7 @@ function incrementStrike() {
     chrome.storage.local.set({ doomscrollStrikes: strikes });
     if (strikes >= 2) {
       chrome.storage.local.set({ doomscrollBlockedToday: true });
-      alert("🚨 Doomscroll Breaker: YouTube blocked for today!");
+      alert("Doomscroll Breaker: YouTube blocked for today!");
       window.location.href = "https://www.google.com/";
     }
   });
@@ -191,4 +189,4 @@ setInterval(() => {
   trackShorts();
   updateDailyHistory();
 }, 1000);
-console.log("✅ Doomscroll Breaker v3.1 active with shared chrome.storage");
+console.log("Doomscroll Breaker v3.1 active with shared chrome.storage");
