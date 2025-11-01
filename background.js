@@ -1,6 +1,4 @@
-// ===============================
-// Doomscroll Breaker - background.js
-// ===============================
+
 chrome.runtime.onInstalled.addListener(() => {
   chrome.alarms.create("dailyReset", { periodInMinutes: 60 });
 });
