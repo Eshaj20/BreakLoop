@@ -30,7 +30,7 @@
 
 1.Download or clone this repository:
    ```bash
-           git clone https://github.com/<your-username>/doomscroll-breaker.git
+           git clone https://github.com/Eshaj20/doomscroll-breaker.git
    ```
 2.Open Chrome and go to:
    
