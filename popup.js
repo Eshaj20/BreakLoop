@@ -1,6 +1,5 @@
-
-
 // ---------- Dashboard Loader ----------
+// load the data : stats from chrome storage like how many shorts watched today, strikes, history, content types, limits.
 function loadDashboard() {
   chrome.storage.local.get(
     [
@@ -31,6 +30,8 @@ function loadDashboard() {
 }
 
 // ---------- Progress Donut Chart ----------
+// Donut Chart -> Progress toward daily limit
+
 function drawProgress(current, limit) {
   const canvas = document.getElementById("progressChart");
   if (!canvas) return;
@@ -66,6 +67,7 @@ function drawProgress(current, limit) {
 }
 
 // ---------- 7-Day History ----------
+// Bar chart -> last 7 history
 function drawHistory(hist) {
   const canvas = document.getElementById("chart");
   if (!canvas || typeof Chart === "undefined") return;
@@ -92,6 +94,7 @@ function drawHistory(hist) {
 }
 
 // ---------- Content Type Pie Chart ----------
+//Pie chart -> content type distribution
 function drawTypeChart(stats) {
   const canvas = document.getElementById("typeChart");
   if (!canvas || typeof Chart === "undefined") return;
